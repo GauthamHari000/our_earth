@@ -51,7 +51,7 @@ class _VisualPageState extends State<VisualPage> {
                             margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2),
                             child: Text(_text,style: TextStyle(
                               color: Colors.white,
-                              fontSize: 32
+                              fontSize: 33
                             ),),),
                         );
                       } else {
