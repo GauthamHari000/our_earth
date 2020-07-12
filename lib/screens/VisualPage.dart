@@ -48,14 +48,14 @@ class _VisualPageState extends State<VisualPage> {
                       ? Text('NO IMAGE')
                       : new Image.file(_image)),
               Container(
-                child: StreamBuilder(
-                    stream: StreamMyClassifier(
-                        _image,
-                        'NRDjngCby2d-pSHOPyWQJxhuB6vOY2uOTCX6KV2BCfwB',
-                        'CompostxLandfillxRecycle_2056123069'),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        _text = snapshot.data;
+                  child: StreamBuilder(
+                      stream: StreamMyClassifier(
+                          _image,
+                          'NRDjngCby2d-pSHOPyWQJxhuB6vOY2uOTCX6KV2BCfwB',
+                          'CompostxLandfillxRecycle_2056123069'),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          _text = snapshot.data;
                         return Center(
                           child: Container(
                             margin: EdgeInsets.only(
@@ -63,7 +63,7 @@ class _VisualPageState extends State<VisualPage> {
                             child: Text(
                               _text,
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 69),
+                                  TextStyle(color: Colors.white, fontSize: 33),
                             ),
                           ),
                         );
