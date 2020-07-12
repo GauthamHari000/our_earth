@@ -63,7 +63,7 @@ class _VisualPageState extends State<VisualPage> {
                             child: Text(
                               _text,
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 33),
+                                  TextStyle(color: Colors.white, fontSize: 69),
                             ),
                           ),
                         );
