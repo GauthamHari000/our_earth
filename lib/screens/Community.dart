@@ -8,6 +8,8 @@ class CommunityHome extends StatefulWidget {
 class _CommunityHomeState extends State<CommunityHome> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.black,
+    );
   }
 }

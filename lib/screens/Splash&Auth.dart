@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     Timer(Duration(seconds: 4), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Authentication()));
+          context, MaterialPageRoute(builder: (context) => VisualPage()));
     });
   }
   @override
@@ -71,9 +71,9 @@ class _AuthenticationState extends State<Authentication> {
             child: MaterialButton(
               child: Text('Log In'),
               onPressed: (){
+                print('HELLO');
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => LoginSignUp(signup:false,login:true)));
-              },
+                    context, MaterialPageRoute(builder: (context) => LoginSignUp(signup:false,login:true)));              },
 
             ),
           ),
@@ -144,7 +144,7 @@ class _LoginSignUpState extends State<LoginSignUp>  {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(child:Text(
-              widget.signup?'Sign Up':"Log In"
+              widget.signup ?'Sign Up':"Log In"
           )),
           TextField(
             controller: usernameController,
