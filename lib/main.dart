@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ourearth2020/screens/VisualPage.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'screens/Splash&Auth.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:Authentication(),
+      home:VisualPage(),
     );
   }
 }
