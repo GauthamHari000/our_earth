@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ourearth2020/screens/OldVisualPage.dart';
+import 'package:ourearth2020/screens/ScreenVisualRecognition.dart';
 import 'package:ourearth2020/screens/VisualPage.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';

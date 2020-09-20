@@ -12,12 +12,12 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:path_provider/path_provider.dart';
 
-class VisualPage extends StatefulWidget {
+class OldVisualPage extends StatefulWidget {
   @override
-  _VisualPageState createState() => _VisualPageState();
+  _OldVisualPageState createState() => _OldVisualPageState();
 }
 
-class _VisualPageState extends State<VisualPage> {
+class _OldVisualPageState extends State<OldVisualPage> {
   var _image;
   String _text;
   Future getImageFromCamera() async {

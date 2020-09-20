@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ibm_watson/flutter_ibm_watson.dart';
-import 'package:ibm_visual_recog_img_file/connection.dart';
+import 'package:flutter_ibm_watson/utils/IamOptions.dart';
+import 'package:ibm_visual_recog_img_file/IBMVisualRecognition.dart';
+import 'package:flutter_ibm_watson/utils/Language.dart';
 import 'package:ourearth2020/screens/Community.dart';
 import 'package:path/path.dart';
 import 'dart:async';
@@ -11,6 +12,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:path_provider/path_provider.dart';
 
+String classifier_id = "CompostxLandfillxRecycle_2056123069";
+ClassifiedImages classifiedImage,classifiedHierarchy;
+String className="";
+String hierarchy="";
+double score =0.0;
 class VisualPage extends StatefulWidget {
   @override
   _VisualPageState createState() => _VisualPageState();
@@ -35,8 +41,6 @@ class _VisualPageState extends State<VisualPage> {
     print('Controller Is Init:' + _controller.value.isInitialized.toString());
     displayPreview();
   }
-
-  Future takePicture() {}
 
   bool displayPreview() {
     if (_controller == null || !_controller.value.isInitialized) {
@@ -76,24 +80,25 @@ class _VisualPageState extends State<VisualPage> {
         body: Stack(children: [
           displayPreview()
               ? AspectRatio(
-            aspectRatio: MediaQuery.of(context).size.width /
-                MediaQuery.of(context).size.height,
-            child: CameraPreview(_controller),
-          )
+                  aspectRatio: MediaQuery.of(context).size.width /
+                      MediaQuery.of(context).size.height,
+                  child: CameraPreview(_controller),
+                )
               : Container(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
-            ),
-          ),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+                  ),
+                ),
           Positioned(
             top: MediaQuery.of(context).size.height - 120,
             child: GestureDetector(
                 onTap: () async {
                   await getImageFromGallery();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    DisplayPicture(image: galleryImage)
-                  ));
-                  print("RECEIVED");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DisplayPicture(image: galleryImage)));
                 },
                 child: Icon(
                   Icons.image,
@@ -108,16 +113,13 @@ class _VisualPageState extends State<VisualPage> {
                   behavior: HitTestBehavior.translucent,
                   child: Container(
                       child: Icon(
-                        Icons.camera,
-                        color: Colors.white,
-                        size: 60,
-                      )),
+                    Icons.camera,
+                    color: Colors.white,
+                    size: 60,
+                  )),
                   onTap: () async {
                     final path = (await getTemporaryDirectory()).path +
                         '${DateTime.now()}.png';
-                    print(
-                        'ISINIT' + _controller.value.isInitialized.toString());
-                    print(_controller.value.isTakingPicture);
                     try {
                       await _controller.takePicture(path);
                       Navigator.push(
@@ -133,45 +135,104 @@ class _VisualPageState extends State<VisualPage> {
   }
 }
 
-class DisplayPicture extends StatelessWidget {
+class DisplayPicture extends StatefulWidget {
   String imagePath;
   File image;
   String _text;
-  // File file = File(imagePath)
   DisplayPicture({this.imagePath, this.image});
+  @override
+  _DisplayPictureState createState() => _DisplayPictureState();
+}
 
-   visualImageClassifier(File image) async{
-      IamOptions options = await IamOptions(iamApiKey: "NRDjngCby2d-pSHOPyWQJxhuB6vOY2uOTCX6KV2BCfwB", url: "https://api.us-south.visual-recognition.watson.cloud.ibm.com/instances/ef286f4e-84c7-44e0-b63d-a6a49a142a30").build();
-      VisualRecognition visualRecognition = new VisualRecognition(iamOptions: options, language: Language.ENGLISH); // Language.ENGLISH is language response
-      ClassifiedImages classifiedImages = await visualRecognition.classifyImageFile(image.toString());
-      print(classifiedImages.getImages()[0].getClassifiers()[0]);
-    // StreamBuilder(
-    //     stream: StreamMyClassifier(
-    //         image,
-    //         'NRDjngCby2d-pSHOPyWQJxhuB6vOY2uOTCX6KV2BCfwB', 'CompostxLandfillxRecycle_2056123069'),
-    //     builder: (context, snapshot) {
-    //       if (snapshot.hasData) {
-    //         _text = snapshot.data;
-    //         print(_text);
-    //       }
-    //       else {
-    //  print('NO DATA AVAILABLE');
-    //       }
-    //
-    //     }
-    // );
+class _DisplayPictureState extends State<DisplayPicture> {
+
+
+
+
+  Future<ClassifiedImages> visualImageClassifier(File image) async {
+    IamOptions options = await IamOptions(
+            iamApiKey: "NRDjngCby2d-pSHOPyWQJxhuB6vOY2uOTCX6KV2BCfwB",
+            url: "https://gateway.watsonplatform.net/visual-recognition/api")
+        .build();
+    IBMVisualRecognition visualRecognition = new IBMVisualRecognition(
+        iamOptions: options, language: Language.ENGLISH);
+     classifiedImage =
+        await visualRecognition.MyClassifier_classifyImageFile(
+            image.path, classifier_id);
+
+    return classifiedImage;
+    // print("Class name  " + classifiedImages.imagesProcessed.toString());
   }
+  Future<ClassifiedImages> visualImageClassifierHierarchy(File image) async {
+    IamOptions options = await IamOptions(
+        iamApiKey: "NRDjngCby2d-pSHOPyWQJxhuB6vOY2uOTCX6KV2BCfwB",
+        url: "https://gateway.watsonplatform.net/visual-recognition/api")
+        .build();
+    IBMVisualRecognition visualRecognition = new IBMVisualRecognition(
+        iamOptions: options, language: Language.ENGLISH);
+     classifiedHierarchy =
+    await visualRecognition.MyClassifier_classifyImageFile(
+        image.path, classifier_id);
+
+    return classifiedHierarchy;
+    // print("Class name  " + classifiedImages.imagesProcessed.toString());
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:Stack(children:[Center(child:image==null?Image.file(File(imagePath)):Image.file(image)),Positioned(
-      top: MediaQuery.of(context).size.height/2,
-      child: FloatingActionButton(onPressed:() async{
-        print('CLICKLED');
-        await visualImageClassifier(image==null?File(imagePath):image);
-      },
-          child:Icon(Icons.arrow_right)),
-    )]));
+    return Scaffold(
+        body: Stack(children: [
 
+          Center(
+          child: widget.image == null
+              ? Image.file(File(widget.imagePath))
+              : Image.file(widget.image)),
+      Positioned(
+          top: MediaQuery.of(context).size.height / 2,
+          child: FloatingActionButton(
+              child: Icon(Icons.arrow_right),
+              onPressed: () async {
+                visualImageClassifier(widget.image == null
+                    ? File(widget.imagePath)
+                    : widget.image).then((value) =>
+                classifiedImage=value
+                );
+                // visualImageClassifierHierarchy(widget.image == null
+                //     ? File(widget.imagePath)
+                //     : widget.image).then((hierarchy) =>
+                // classifiedHierarchy=hierarchy
+                // );
+
+                setState(() {
+                  className = classifiedImage.getImages()[0].getClassifiers()[0].getClasses()[0].className;
+                  score = classifiedImage.getImages()[0].getClassifiers()[0].getClasses()[0].score*100;
+                  // hierarchy=classifiedHierarchy.getImages()[0].getClassifiers()[0].getClasses()[0].typeHierarchy;
+                  //print(hierarchy);
+                });
+
+
+                // FutureBuilder(
+                //     future: visualImageClassifier(widget.image == null
+                //         ? File(widget.imagePath)
+                //         : widget.image),
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasData) {
+                //         print(snapshot.toString());
+                //       } else
+                //         print('NOD ATA');
+                //     });
+              })),
+          Positioned(
+              child:Text(className+"\n"+score.toString()+"%"+"\n"+hierarchy,style: TextStyle(
+                color: Colors.deepPurple,
+                fontSize: 40
+              ),),
+              top:150,
+              right:140
+
+          ),
+    ]));
   }
 }
+
