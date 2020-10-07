@@ -154,11 +154,21 @@ class _DisplayPictureState extends State<DisplayPicture> {
             iamApiKey: "NRDjngCby2d-pSHOPyWQJxhuB6vOY2uOTCX6KV2BCfwB",
             url: "https://gateway.watsonplatform.net/visual-recognition/api")
         .build();
+
+    IBMVisualRecognition hierarchyVisualRecog = new IBMVisualRecognition(
+        iamOptions: options, language: Language.ENGLISH);
+    classifiedHierarchy =
+    await hierarchyVisualRecog.classifyImageFile(image.path);
+    // setState(() {
+    //   hierarchy=classifiedHierarchy.getImages()[0].getClassifiers()[0].getClasses()[0].className;
+    // });
+
     IBMVisualRecognition visualRecognition = new IBMVisualRecognition(
         iamOptions: options, language: Language.ENGLISH);
      classifiedImage =
         await visualRecognition.MyClassifier_classifyImageFile(
             image.path, classifier_id);
+
 
     return classifiedImage;
     // print("Class name  " + classifiedImages.imagesProcessed.toString());
@@ -177,6 +187,8 @@ class _DisplayPictureState extends State<DisplayPicture> {
     return classifiedHierarchy;
     // print("Class name  " + classifiedImages.imagesProcessed.toString());
   }
+
+
 
 
   @override
@@ -198,17 +210,17 @@ class _DisplayPictureState extends State<DisplayPicture> {
                     : widget.image).then((value) =>
                 classifiedImage=value
                 );
-                // visualImageClassifierHierarchy(widget.image == null
-                //     ? File(widget.imagePath)
-                //     : widget.image).then((hierarchy) =>
-                // classifiedHierarchy=hierarchy
-                // );
+                visualImageClassifierHierarchy(widget.image == null
+                    ? File(widget.imagePath)
+                    : widget.image).then((hierarchy) =>
+                classifiedHierarchy=hierarchy
+                );
 
                 setState(() {
                   className = classifiedImage.getImages()[0].getClassifiers()[0].getClasses()[0].className;
                   score = classifiedImage.getImages()[0].getClassifiers()[0].getClasses()[0].score*100;
-                  // hierarchy=classifiedHierarchy.getImages()[0].getClassifiers()[0].getClasses()[0].typeHierarchy;
-                  //print(hierarchy);
+                  hierarchy=classifiedHierarchy.getImages()[0].getClassifiers()[0].getClasses()[0].className;
+                  print("HIERARCHY"+hierarchy);
                 });
 
 
