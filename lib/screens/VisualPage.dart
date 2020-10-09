@@ -39,15 +39,6 @@ class _VisualPageState extends State<VisualPage> {
       await _controller.initialize();
     } catch (e) {}
     print('Controller Is Init:' + _controller.value.isInitialized.toString());
-    displayPreview();
-  }
-
-  bool displayPreview() {
-    if (_controller == null || !_controller.value.isInitialized) {
-      return false;
-    } else {
-      return true;
-    }
   }
 
   Future getImageFromGallery() async {
@@ -78,17 +69,29 @@ class _VisualPageState extends State<VisualPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: Stack(children: [
-          displayPreview()
-              ? AspectRatio(
+          FutureBuilder(
+            future:initCamera(),
+            builder: (context,snapshot){
+              if (snapshot.connectionState==ConnectionState.done) {
+                return AspectRatio(
                   aspectRatio: MediaQuery.of(context).size.width /
                       MediaQuery.of(context).size.height,
                   child: CameraPreview(_controller),
-                )
-              : Container(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
-                  ),
-                ),
+                );
+              }
+              else
+                {
+                  return Container(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+                    )
+                  );
+                }
+
+            },
+          ),
+
+
           Positioned(
             top: MediaQuery.of(context).size.height - 120,
             child: GestureDetector(
