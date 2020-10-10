@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 class ScreenVisualRecognition extends StatefulWidget {
   ScreenVisualRecognition({Key key, this.title}) : super(key: key);
   final String title;
-
   @override
   _ScreenVisualRecognition createState() => _ScreenVisualRecognition();
 }
@@ -55,6 +54,7 @@ class _ScreenVisualRecognition extends State<ScreenVisualRecognition> {
           .getClassifiers()[0]
           .getClasses()[0]
           .className;
+
     });
   }
 
@@ -81,6 +81,7 @@ class _ScreenVisualRecognition extends State<ScreenVisualRecognition> {
     setState(() {
       _text = classifiedImages.getImages()[0].getClassifiers()[0].toString();
       _text2 = r.className + " " + r.score.toString();
+      print(_text2);
     });
   }
 
