@@ -28,9 +28,11 @@ dependencies:
   shared_preferences: ^0.5.7+3
   flutter_ibm_watson: ^0.0.2
   google_sign_in: ^4.5.1
+  async: ^2.4.1
   image_picker: ^0.6.6+5
   http: ^0.11.3+16
   ibm_visual_recog_img_file: ^2.0.2
+  flutter_inner_drawer: "^0.5.7+2"
   flutter_speed_dial: ^1.2.5
   camera: ^0.5.8+5
   path_provider: ^1.6.14

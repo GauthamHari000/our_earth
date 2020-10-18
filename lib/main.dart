@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:ourearth2020/screens/OldVisualPage.dart';
 import 'package:ourearth2020/screens/ScreenVisualRecognition.dart';
 import 'package:ourearth2020/screens/VisualPage.dart';
 import 'package:path/path.dart';
@@ -19,6 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: <String,WidgetBuilder>{
+        '/visualPage': (context) => VisualPage(),
+      },
       debugShowCheckedModeBanner: false,
       home:VisualPage(),
     );

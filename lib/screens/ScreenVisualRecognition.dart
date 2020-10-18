@@ -22,8 +22,7 @@ class _ScreenVisualRecognition extends State<ScreenVisualRecognition> {
   Future<Null> getOptions() async {
     this.options = await IamOptions(
         iamApiKey: "NRDjngCby2d-pSHOPyWQJxhuB6vOY2uOTCX6KV2BCfwB",
-        url:
-        "https://api.us-south.visual-recognition.watson.cloud.ibm.com/instances/ef286f4e-84c7-44e0-b63d-a6a49a142a30")
+        url: "https://api.us-south.visual-recognition.watson.cloud.ibm.com/instances/ef286f4e-84c7-44e0-b63d-a6a49a142a30")
         .build();
     print(this.options.accessToken);
     print(this.options);
@@ -54,7 +53,6 @@ class _ScreenVisualRecognition extends State<ScreenVisualRecognition> {
           .getClassifiers()[0]
           .getClasses()[0]
           .className;
-
     });
   }
 
