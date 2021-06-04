@@ -1,6 +1,6 @@
 # ourearth2020
 Congressional App Challenge 2020.   
-Demonstration Video: https://www.youtube.com/watch?v=8hBP5gfd8KM&t
+Demonstration Video: https://youtu.be/8hBP5gfd8KM
 
 Features of the app: 
 1. User Authentication through Google Firebase Authentication.
