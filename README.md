@@ -1,5 +1,5 @@
 # ourearth2020
-Congressional App Challenge 2020.   
+Congressional App Challenge.   
 Demonstration Video: https://youtu.be/8hBP5gfd8KM
 
 Features of the app: 
