@@ -1,4 +1,4 @@
-# ourearth2020
+# ourearth
 Congressional App Challenge.   
 Demonstration Video: https://youtu.be/8hBP5gfd8KM
 
