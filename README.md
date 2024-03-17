@@ -10,5 +10,5 @@ Features of the app:
 
 
 <img width="357" alt="Screenshot 2023-12-23 185622" src="https://github.com/GauthamHari000/our_earth2020/assets/62849063/3cb8e476-c44f-46b0-8c1d-34729a8d8010">
-<img width="322" alt="Screenshot 2023-12-23 185700" src="https://github.com/GauthamHari000/our_earth2020/assets/62849063/ed299e02-70af-490b-bb9f-f83551c6cf7d">
+<img width="320" alt="image" src="https://github.com/GauthamHari000/our_earth/assets/62849063/eb2b9547-3bc4-44de-9710-d255b3cda122">
 <img width="320" alt="Screenshot 2023-12-23 185722" src="https://github.com/GauthamHari000/our_earth2020/assets/62849063/841490ed-e408-49af-a15c-9a97b44b5a8d">
